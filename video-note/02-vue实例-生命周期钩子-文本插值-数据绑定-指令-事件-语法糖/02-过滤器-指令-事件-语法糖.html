@@ -6,11 +6,115 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        .changeColor {
+            color: blue;
+        }
+    </style>
 </head>
 
 <body>
-    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.5.16/vue.js"></script>
+    <div id="app">
+        <!-- {{date}}<br> -->
+        {{date | formatData(1, 2)}}
+        <hr>
+        v-text {{apple}}
+        <span v-text='apple'></span>
+        <hr>
+        <br>
+        v-html<br> {{banana}} <br>
+        <span v-text="banana"></span>
+        <br>
+        <span v-html="banana"></span>
+        <hr>
+        v-bind指令 绑定活的属性<br>
+        <!-- <div class="{className}}"></div><br> -->
+        <div v-bind:class="className">test code</div>
+        <div v-bind:id="className">test code</div>
+        <div :id="className">test code</div>
+        <hr>
+        v-on <br>
+        <!-- <div>{{countNumber}}</div> -->
+        <button v-on:click="count">{{countNumber}}</button>
+        <button @click="count">{{countNumber}}</button>
 
+
+    </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.5.16/vue.js"></script>
+    <script>
+        let plusData = function (value) {
+            return value < 10 ? "0" + value : value
+        }
+        let app = new Vue({
+            el: "#app",
+            data: {
+                date: this.date,
+                apple: 'apple',
+                banana: '<span style="color:red">banana</span>',
+                className: 'changeColor',
+                countNumber: 0
+            },
+            methods: {
+                count() {
+                    this.countNumber = this.countNumber + 1
+                }
+            },
+            // 定义过滤器
+            filters: {
+                // 这个value就是需要过滤的数据
+                formatData: function (value, a, b) {
+                    let date = new Date(value)
+                    let year = date.getFullYear()
+                    let month = plusData(date.getMonth() + 1)
+                    let day = plusData(date.getDate())
+                    let hour = plusData(date.getHours())
+                    let minute = plusData(date.getMinutes())
+                    let sec = plusData(date.getSeconds())
+                    // 将处理后的数据返回
+                    return year + ' ' + month + ' ' + day + ' ' + hour + ' ' + minute + ' ' + sec + ' --- ' + a + ' ' + b
+                }
+            },
+            created() {
+                console.log('created fn');
+            },
+            // 声明周期钩子
+            mounted: function () {
+                let _this = this
+                this.timer = setInterval(() => {
+                    _this.date = new Date()
+                }, 1000)
+            },
+            beforeDestroy() {
+                console.log('beforeDestroy fn');
+                // 清除定时器
+                if (this.timer) {
+                    clearInterval(this.timer)
+                }
+            }
+        })
+        // 销毁vue实例与DOM之间的关联
+        setTimeout(() => {
+            // app.$destroy()
+        }, 2000)
+
+        // 过滤器
+        // 在插值后使用 ｜ 设置自定义规则
+        // 可以定义多个
+        // {{data | filter1 | filter2}
+
+        // 指令和事件
+        // 指令是Vue模版中最常用的一项功能 带有前缀 v-
+        // 帮助快速完成DOM操作 循环渲染 显示 隐藏
+        // v-text 解析文本 和{{}}作用一致
+        // v-html  解析html 
+        // v-bind 动态更新html元素上的属性 如 id class
+        // v-on 用来绑定事件监听器
+
+        // 语法糖
+        // 不影响功能的情况下 使用简介语法写替代一些api
+        // v-bind  ->  :
+        // v-on -> @
+    </script>
 </body>
 
 </html>

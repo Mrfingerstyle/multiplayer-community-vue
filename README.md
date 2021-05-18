@@ -1,3 +1,3 @@
 ### 多人社区项目
 
-#### Vue.js vueRouter ES6
+#### 使用技术 Vue.js vueRouter ES6
