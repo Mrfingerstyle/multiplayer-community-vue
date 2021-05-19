@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .error {
+            width: 100px;
+            height: 100px;
+            border: 10px solid #000;
+            background-color: red;
+        }
+
+        .bgBlue {
+            background-color: blue;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="app">
+        <div>需求 点击按钮 切换背景颜色</div>
+        <div>数组写法 和 对象写法 混用 第一个成员是对象 第二个是数组</div>
+        <div v-bind:class="[errorClass, {bgBlue: isActive}]"></div><br>
+        <button v-on:click="cc">cc</button>
+
+        <!-- 在组件上使用 后续 -->
+    </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.5.16/vue.js"></script>
+    <script>
+        let app = new Vue({
+            el: "#app",
+            data: {
+                isActive: true,
+                errorClass: "error"
+            },
+            methods: {
+                cc() {
+                    this.isActive = !this.isActive
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

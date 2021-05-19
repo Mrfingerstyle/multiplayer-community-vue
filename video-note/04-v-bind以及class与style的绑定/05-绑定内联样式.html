@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <div>绑定内联样式 键表示style属性 值表示属性对应的值</div>
+        <div>注意 Vue中 css属性名两种命名方式 驼峰式 短横线分割并小写</div>
+        <div>Vue中只要是大写字母 都会被转换为 -小写字母</div>
+        <div>fontSize font-size</div>
+        <div v-bind:style="{'color': color, 'fontSize': fontSize + 'px'}">test code</div>
+
+        <div>使用的CSS3的内容 无需加前缀 Vue自动加上</div>
+
+        <div>数组语法</div>
+        <div v-bind:style="[styleA, styleB]">[styleA, styleB]</div>
+    </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.5.16/vue.js"></script>
+    <script>
+        let app = new Vue({
+            el: "#app",
+            data: {
+                color: 'red',
+                fontSize: '30',
+                styleA: {
+                    color: 'red',
+                },
+                styleB: {
+                    fontSize: '30px',
+                    border: "1px solid red"
+                },
+            },
+        })
+    </script>
+</body>
+
+</html>

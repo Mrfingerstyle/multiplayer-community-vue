@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        {{text}}<br>
+        <!-- 文本插值只能使用 单行表达式 -->
+        {{text.split(',').reverse().join(',')}}<br>
+        <div>计算属性得到</div>
+        {{reverseText}}
+        <!-- 逻辑过长 变得臃肿 难以维护 -->
+        <!-- 遇到复杂的逻辑时 应当使用计算属性 -->
+    </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.5.16/vue.js"></script>
+    <script>
+        // "123,456,789" -> 789,456,123
+        // 先分割 再逆序
+
+        // 计算属性 使用场景 再模版中双向绑定一些数据或表达式 但是表达式太长 或逻辑复杂
+        // 会变得臃肿 难以维护
+        // 依赖于属性得到的 都可以使用计算属性
+
+        var app = new Vue({
+            el: "#app",
+            data: {
+                text: "123,456,789"
+            },
+            // 定义计算属性
+            computed: {
+                reverseText() {
+                    return this.text.split(',').reverse().join(',')
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

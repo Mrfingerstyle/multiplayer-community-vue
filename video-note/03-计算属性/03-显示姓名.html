@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <div>{{text}}</div>
+        <div>{{fullName}}</div>
+        <hr>
+        <div>计算属性的缓存</div>
+        <div>{{now}}</div>
+        <div>methods 得到的时间戳 方法需要加括号</div>
+        <div>{{thisTime()}}</div>
+    </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.5.16/vue.js"></script>
+    <script>
+        let app = new Vue({
+            el: "#app",
+            data: {
+                firstName: 'l',
+                lastName: 'y',
+                text: 'xxx'
+            },
+            methods: {
+                thisTime() {
+                    return Date.now()
+                }
+            },
+            computed: {
+                // 计算属性默认用法 是getter函数
+                // fullName() {
+                //     return this.firstName + this.lastName
+                // }
+
+                // 设置setter方法
+                // 如果在控制台设置fullName值 会调用setter方法
+                fullName: {
+                    get() {
+                        return this.firstName + " " + this.lastName
+                    },
+                    set(newValue) {
+                        console.log('setter call.');
+                        // 例如 使用逗号分割
+                        let names = newValue.split(',')
+                        this.firstName = names[0]
+                        this.lastName = names[1]
+                    }
+                },
+                now() {
+                    return Date.now()
+                }
+            }
+        })
+        // 计算属性可以依赖其他计算属性 也可以依赖其他实例的数据
+        // 计算属性的缓存
+        // 如果在控制台修改其他文本插值的值 只要页面重新渲染了 
+        // app.text = '111'
+
+        // 方法调用 会重新执行 不需要渲染 不会重新执行
+        // 计算属性 不管渲染与否 都不会执行 因为计算属性依赖缓存
+        // 只要计算属性依赖的数据不变化 就永远不变
+        // 使用计算属性能达到 使用方法也可以实现 二者只是缓存的区别
+        console.log(app.$data);
+    </script>
+</body>
+
+</html>
