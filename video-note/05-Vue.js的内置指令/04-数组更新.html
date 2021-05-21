@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <div>数组更新</div>
+
+        <!-- push 数组末尾添加元素 -->
+        <!-- pop 数组末尾删除一个元素 返回删除的元素 -->
+        <!-- shift 删除数组的第一个元素 -->
+        <!-- unshift 在数组头部添加元素 返回新数组的长度 -->
+        <!-- splice 添加或删除元素 万能方法 -->
+        <!-- sort 排序 -->
+        <!-- reverse 数组逆序 -->
+        <!-- 过滤 filter -->
+
+        <button v-on:click="arrPush">arrPush</button>
+        <button v-on:click="arrPop">arrPop</button>
+        <button v-on:click="arrShift">arrShift</button>
+        <button v-on:click="arrUnshift">arrUnshift</button>
+        <button v-on:click="arrSplice">arrSplice</button>
+        <button v-on:click="arrSort">arrSort</button>
+        <br>
+        <button v-on:click="arrReverse">arrReverse</button>
+        <!-- 以上方法改变数组 页面都会重新渲染 -->
+        <!-- 因为数据绑定 -->
+
+        <!-- 两个变动数组 vue不变 -->
+        <!-- 改变数组的指定项 arr[0] = 'x' 不会重新刷新 -->
+        <!-- 改变数组长度 -->
+        <button v-on:click="changeArrByIndex">changeArrByIndex</button>
+        <button v-on:click="changeArrLength">changeArrLength</button>
+        <hr>
+        <ul>
+            <li v-for="(item,index) in arr">{{index}} {{item}}</li>
+        </ul>
+        <div>filter</div>
+        <div>{{matchArrayItem}}</div>
+
+
+    </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.5.16/vue.js"></script>
+    <script>
+        let vm = new Vue({
+            el: '#app',
+            data: {
+                arr: ['book', 'app', 'pencil']
+            },
+            computed: {
+                matchArrayItem() {
+                    // 参数代表要过滤的每一项
+                    return this.arr.filter(function (item) {
+                        return item.match(/oo/)
+                    })
+                }
+            },
+            methods: {
+                arrPush() {
+                    this.arr.push('notes')
+                },
+                arrPop() {
+                    this.arr.pop()
+                },
+                arrShift() {
+                    this.arr.shift()
+                },
+                arrUnshift() {
+                    this.arr.unshift('xxx')
+                },
+                arrSplice() {
+                    // 参数
+                    // 1 开始操作的位置
+                    // 2 要操作的长度
+                    // 3 可选参数
+
+                    // 删除操作 返回删除的元素
+                    // this.arr.splice(1, 1)
+                    // 全部删除
+                    // this.arr.splice(0)
+
+                    // 添加操作
+                    this.arr.splice(0, 0, 'alice')
+                    this.arr.splice(1, 0, 'tom', 'abc')
+                },
+                arrSort() {
+                    this.arr.sort(function (a, b) {
+                        // 从小到大
+                        // return a.length - b.length
+                        // 从大到小
+                        return b.length - a.length
+                    })
+                },
+                arrReverse() {
+                    this.arr.reverse()
+                },
+                changeArrByIndex() {
+                    this.arr[0] = 'xxx'
+                },
+                changeArrLength() {
+                    this.arr.length = 2
+                },
+
+            }
+        })
+        // 改变数组的第一项 这种方式可以被监测到
+        Vue.set(vm.arr, 1, 'car')
+        // 改变数组长度
+        // splice
+        // this.arr.splice(1)
+
+
+
+
+
+    </script>
+</body>
+
+</html>

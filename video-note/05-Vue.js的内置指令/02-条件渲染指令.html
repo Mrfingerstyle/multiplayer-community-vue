@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <div>条件渲染指令</div>
+        <hr>
+        <div>v-if后跟等号 等号的内容必须是布尔值</div>
+        <!-- <p v-if="6 > 3">{{apple}}</p> -->
+        <!-- v-if基本用法 -->
+        <p v-if="6 < 3">{{apple}}</p>
+        <p v-else-if="9 > 5">{{pineapple}}</p>
+        <p v-else>{{banana}}</p>
+        <!-- v-if实例 -->
+        <!-- bug 用户名输入数据 切换后 数据依然保留在密码的输入框内 -->
+        <!-- ？  -->
+        <!-- vue渲染元素时 为了渲染效率 会金肯呢个复用已有元素 -->
+        <!-- 只会渲染变化的元素 也就是 input元素被复用了 -->
+        <!-- 解决 加给两个input加key -->
+        <!-- 就不会出现组件复用的情况 -->
+        <!-- v-if 实例用法 对不想复用的标签或元素 加入key属性即可 key是唯一的 -->
+
+        <div v-if="type==='name'">username <input type="text" placeholder="enter username" key="name"></div>
+        <div v-else>password <input type="text" placeholder="enter password" key="psd"></div>
+        <button v-on:click="toggleType">toggle</button>
+        <hr>
+        <!-- v-show 只改变了css display 显示与否取决于布尔值-->
+        <!-- 如果变为false display: none -->
+        <div>v-show </div>
+        <p v-show="9 > a">v-show 渲染</p>
+        <button v-on:click="changeA">changeA</button>
+        <!-- v-if v-show比较 -->
+        <!-- v-if 实时渲染 页面显示就渲染 不显示就移除 -->
+        <!-- v-show 只渲染一次 存在于html文档中 只是改变了display的属性 none 隐藏  -->
+        <!-- 频繁切换页面 v-show 如选项卡 -->
+        <!-- v-if：场景 权限校验的时候 -->
+        <!-- v-show:展示页面 类似于一些选项卡等 -->
+
+    </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.5.16/vue.js"></script>
+    <script>
+        let app = new Vue({
+            el: "#app",
+            data: {
+                apple: 'apple',
+                banana: 'banana',
+                pineapple: 'pineapple',
+                type: 'name',
+                a: 3
+            },
+            methods: {
+                toggleType: function () {
+                    this.type = this.type === "name" ? "psd" : 'name'
+                },
+                changeA() {
+                    this.a = (this.a === 3 ? 18 : 3)
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

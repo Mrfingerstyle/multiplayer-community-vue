@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 两个互相不干涉 -->
+        <div @click.self="divClick" style="width: 100px;height: 100px;border: 1px solid #000;">
+            <button @click.stop="buttonClick">buttonClick</button>
+        </div>
+        <hr>
+        <!-- 一般提交表单会重载页面 -->
+        <!-- 如果不想重载 -->
+        <form action="" @submit.prevent="handle">
+            <button type="submit">提交表单</button>
+        </form>
+
+        <hr>
+        <div>once</div>
+        <button @click.once="testOnce">执行一次</button>
+        <button @click="testOnce">执行多次</button>
+
+        <hr>
+        <div>监听鼠标事件</div>
+        <!-- 指定keyCode -->
+        <!-- @keyup.enter 也是可以的 -->
+        <!-- @keyup.tab 也是可以的 -->
+        <!-- @keyup.delete 也是可以的 -->
+
+        <input type="submit" @keyup.13="testKeyUp">
+        <input type="submit" @keyup.enter="testKeyUp">
+    </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.5.16/vue.js"></script>
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                count: 0
+            },
+            // 向上冒泡
+            // stop 阻止单击事件向上冒泡
+            // prevent 提交事件但是并且不重载页面
+            // self 只是作用在元素本身而非子元素的时候调用
+            // 只执行一次的方法
+
+            methods: {
+                divClick() {
+                    console.log('div被点击了');
+                },
+                buttonClick() {
+                    console.log('btn被点击了');
+                },
+                handle() {
+                    console.log('不重载 页面不刷新');
+                },
+                testOnce() {
+                    console.log('once');
+                },
+                testKeyUp() {
+                    console.log('testKeyUp');
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

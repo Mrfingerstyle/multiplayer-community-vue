@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div>Vue 内置指令</div>
+        <div>基本指令 类似v-x</div>
+        <hr>
+        <div>cloak 遮盖物</div>
+        <div>v-cloak</div>
+        <div>解决初始化慢导致页面闪动 一般和display配合使用</div>
+        <div>网速慢时 会先显示{{}} 再显示渲染完成的内容</div>
+        <p v-cloak>{{msg}}</p>
+        <hr>
+        <div>v-once 只渲染一次 重新赋值不起作用 后续页面不会重新渲染</div>
+        <div>{{onceData}}</div>
+        <div v-once>{{onceData}}</div>
+        <hr>
+        <div></div>
+
+
+    </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.5.16/vue.js"></script>
+    <script>
+        let app = new Vue({
+            el: "#app",
+            data: {
+                msg: 'msg',
+                onceData: 'once-data',
+            }
+        })
+    </script>
+</body>
+
+</html>
