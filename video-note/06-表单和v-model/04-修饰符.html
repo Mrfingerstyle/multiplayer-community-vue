@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <p>修饰符</p>
+        <p>.lazy 失去焦点 或 敲回车 再显示</p>
+        <input type="text" v-model="inputStr" name="" id=""> {{inputStr}} <br>
+        <input type="text" v-model.lazy="inputStrLazy" name="" id=""> {{inputStrLazy}}
+        <p>number</p>
+        <input type="text" v-model.number="toNumber" name="" id="">
+        <p>{{toNumber}}</p>
+        <p>{{typeof toNumber}}</p>
+        <p>将输入的字符串转为number类型</p>
+        <p>.trim</p>
+        <p>过滤字符串两端的空白</p>
+        <input type="text" v-model.trim="Str" name="" id="">
+        <input type="text" v-model.trim="trimStr" name="" id="">
+        <p>{{Str}}</p>
+        <p>{{trimStr.split('')}}</p>
+
+        <!-- v-model作用 -->
+        <input :value="test" @input="test = $event.target.value">
+        <p>{{test}}</p>
+    </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.5.16/vue.js"></script>
+    <script>
+        let vm = new Vue({
+            el: "#app",
+            data: {
+                picked: true,
+                value: '111',
+                toggle: true,
+                value_1: 'true-value',
+                value_2: 'false-value',
+                selected: '',
+                inputStr: '',
+                inputStrLazy: '',
+                toNumber: '',
+                Str: '',
+                trimStr: '',
+                test: ''
+            }
+        })
+    </script>
+</body>
+
+</html>

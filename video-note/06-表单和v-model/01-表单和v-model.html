@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <div>v-model使用</div>
+        <div>input textarea用法</div>
+        <input type="text" name="" id="" v-model="value">
+        <div>{{value}}</div>
+        <hr>
+        <div>textarea 绑定了msg之后 初始化的值不显示 此时依赖的是 msg</div>
+        <textarea name="" id="" cols="30" rows="10" v-model="msg">多行文本初始值</textarea>
+        <div>{{msg}}</div>
+        <hr>
+        <div>单选框</div>
+        <!-- 单个单选按钮 -->
+        <div>单个单选框</div>
+        <input type="radio" v-bind:checked="oneRadio" name="" id=""><br>
+        <div>多个单选框 name名称相同 才会互斥</div>
+        <div>v-model绑定的选中的单选框的value值</div>
+        <div>此处绑定的初始值可以随意给 不给初始值 谁也不选中</div>
+        item_1 <input type="radio" value="item_1" name="item" v-model="checkName" id="">
+        item_2 <input type="radio" value="item_2" name="item" v-model="checkName" id="">
+        item_3 <input type="radio" value="item_3" name="item" v-model="checkName" id="">
+        <br>
+        <div>现在选中的值 {{checkName}}</div>
+
+
+    </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.5.16/vue.js"></script>
+    <script>
+        // v-model 指令
+        // 用于在 表单类元素 上双向绑定事件
+        let vm = new Vue({
+            el: "#app",
+            data: {
+                value: '',
+                msg: '',
+                oneRadio: true,
+                checkName: 'item_1'
+            }
+        })
+    </script>
+</body>
+
+</html>

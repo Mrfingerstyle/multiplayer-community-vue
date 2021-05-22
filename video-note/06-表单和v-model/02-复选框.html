@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <div>单选框</div>
+        单选框 v-bind <input type="radio" v-bind:checked="oneRadio" name="" id="">
+        <!-- 此处v-model不生效 -->
+        <!-- 单选框 v-model <input type="radio" v-model="oneRadio" name="" id=""> -->
+
+        <hr>
+        <div>复选框</div>
+        单个复选框 v-bind <input type="checkbox" v-bind:checked="oneRadio" name="" id="">
+        单个复选框 v-model <input type="checkbox" v-model="oneRadio" name="" id="">
+        <div>{{oneRadio}}</div>
+        <hr>
+        <div>多个复选框</div>
+        <!-- 如果组合使用 需要v-model配合value使用 v-model绑定一个数组 -->
+        <!-- 如果绑定的是字符串 就会转华为true false 与所有绑定的复选框的checked属性关联 -->
+        item_1 <input type="checkbox" value="item_1" v-model="checks">
+        item_2 <input type="checkbox" value="item_2" v-model="checks">
+        item_3 <input type="checkbox" value="item_3" v-model="checks">
+        <div>选择的是 {{checks}}</div>
+        <hr>
+        <div>下拉框</div>
+        <!-- 单选下拉框 -->
+        <!-- 所绑定的value值初始化可以为数组 也可以是字符串 -->
+        <select name="" id="" v-model="selected">
+            <option value="item_1">item_1</option>
+            <option value="item_2">item_2</option>
+            <option value="item_3">item_3</option>
+        </select>
+        <div>现在选中的是selected {{selected}}</div>
+        <br>
+        <br>
+        <!-- v-model绑定在select标签上 -->
+        <div>多选</div>
+        <!-- 下拉框 多选的时候会将结果转化为为数组 -->
+        <select name="" id="" v-model="selectedMul" multiple>
+            <option value="item_1">item_1</option>
+            <option value="item_2">item_2</option>
+            <option value="item_3">item_3</option>
+        </select>
+        <div>现在选中的是selected {{selectedMul}}</div>
+    </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.5.16/vue.js"></script>
+    <script>
+        let vm = new Vue({
+            el: "#app",
+            data: {
+                oneRadio: true,
+                checks: ['item_1', 'item_2'],
+                // selected: ''
+                selected: [],
+                selectedMul: ''
+                // selectedMul: []
+            }
+        })
+        // 总结
+        // 如果是单选 初始化最好给字符串 
+        // 因为v-model绑定的是静态字符串或布尔值
+
+        // 如果是多选 初始化最好给定一个数组
+
+
+    </script>
+
+</body>
+
+</html>
