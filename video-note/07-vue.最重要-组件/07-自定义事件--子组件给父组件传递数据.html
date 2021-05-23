@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #app {
+            height: 200px;
+            border: 1px solid #000;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div>父组件</div>
+        <h2>total -- {{total}}</h2>
+        <!-- 此处的change事件 命名 随意 -->
+        <son-component @change="handleTotal"></son-component>
+    </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.5.16/vue.js"></script>
+    <script>
+        // 组件关系 父子组件通信 兄弟组件通信 跨级组件通信
+        // 自定义事件 子组件给父组件传递数据
+        // JavaScript设计模式 观察者模式 dispatchEvent addEventListener 这两个方法
+        // Vue组件也有类似的一套模式 子组件使用 $emit 出发事件  $on 监听子组件的事件
+
+        // 第一步：自定义事件
+        // 第二步： 在子组件中用$emit触发事件，第一个参数是事件名，后边的参数是要传递的数据
+        // 第三步：在自定义事件中用一个参数来接受
+        Vue.component('son-component', {
+            template: `<div style="height: 100px;border: 1px solid #000;">
+                <div>子组件</div>
+                <button @click="handleIncrease">+1000</button>
+                <button @click="handleReduce">-1000</button>
+            </div>`,
+            data() {
+                return {
+                    count: 2000
+                }
+            },
+            methods: {
+                handleIncrease() {
+                    this.count = this.count + 1000
+                    this.$emit('change', this.count)
+                },
+                handleReduce() {
+                    this.count = this.count - 1000
+                    this.$emit('change', this.count)
+                }
+            }
+        })
+
+        let app = new Vue({
+            el: "#app",
+            data: {
+                total: 2000
+            },
+            methods: {
+                handleTotal(value) {
+                    // 此处的形参value就是传递过来的数据
+                    this.total = value
+
+                }
+            }
+        })
+
+    </script>
+</body>
+
+</html>

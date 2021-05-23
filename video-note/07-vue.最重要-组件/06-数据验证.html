@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <my-component my-msg="hello"></my-component>
+        <hr>
+        <type-component :a="a" :b='b' :c='c' :d="d" :f="f" :g="g"></type-component>
+    </div>
+
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.5.16/vue.js"></script>
+    <script>
+        // 常见命名方式
+        // Vue组件中的 驼峰式命名 和 短横线命名
+        // html中组件 只能使用 短横杠 命名 my-component 不允许使用驼峰式
+        // 在组件中 父组件给子组件传递数据使用短横线 
+        // <my-component myMsg="hello"></my-component> 不可以 改为 my-msg
+
+        // 在template中 必须使用驼峰式命名方式 若为短横线的命名方式 会报错
+        // props: ['myMsg'],
+        // template: '<div>{{myMsg}}</div>'
+
+        // 在组件的data中 使用this.xxx引用时 只能是驼峰式命名 使用短横线 会报错
+        Vue.component('my-component', {
+            props: ['myMsg'],
+            template: '<div>{{abc}}</div>',
+            data() {
+                return {
+                    abc: this.myMsg
+                }
+            }
+        })
+
+        Vue.component('type-component', {
+            props: {
+                // 类型检验
+                // a: Number
+                a: String,
+                b: [String, Number],
+                // 指定类型 默认值
+                c: {
+                    type: Boolean,
+                    default: true
+                },
+                d: {
+                    type: String,
+                    required: true
+                },
+                e: {
+                    type: Array,
+                    default: function () {
+                        return [666]
+                    }
+                },
+                // 自定义一个验证函数
+                f: {
+                    validator: function (value) {
+                        return value < 10
+                    }
+                },
+                g: {
+                    // type: Function
+                    type: Function
+                }
+
+            },
+            template: '<div>{{a}} - {{b}} - {{c}} - {{d}} - {{e[0]}} - {{f}} - {{g}}</div>',
+        })
+
+        let app = new Vue({
+            el: "#app",
+            data: {
+                a: '1',
+                // b: 666
+                b: '666',
+
+                c: '',
+                d: '123',
+                e: [1, 2, 3],
+                f: 1,
+                g: console.log()
+                // g: 111
+            }
+        })
+
+        // 验证的type类型可以是
+        // String 
+        // Number 
+        // Boolean
+        // Object
+        // Array
+        // Function
+
+
+    </script>
+</body>
+
+</html>

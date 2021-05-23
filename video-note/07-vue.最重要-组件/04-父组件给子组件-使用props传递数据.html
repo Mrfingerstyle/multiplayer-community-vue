@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>在父组件向子组件传递消息</div>
+    <div id="app" style="border: 1px solid red;height: 300px;">
+        <h5 style="text-align: center;">父组件</h5>
+        <!-- <child-component msg="来自父组件的内容"></child-component> -->
+        <!-- 使用v-bind 或 不使用向子组件中传递字符串的区别 -->
+        <!-- 还可以使用布尔值 对象传递 -->
+        <!-- 此时传递是字符串 -->
+        <!-- <child-component msg="[3,6,9]"></child-component> -->
+        <child-component msg="true"></child-component>
+        <child-component msg="{name: 'll'}"></child-component>
+        <!-- 按数组进行解析 -->
+        <!-- <child-component :msg=" [3,6,9]"></child-component> -->
+        <child-component :msg="true"></child-component>
+        <child-component :msg="{name: 'll'}"></child-component>
+
+        <hr>
+        <div>使用v-bind进行数据动态绑定 把input中的msg传递给子组件</div>
+        <input type="text" v-model="parentMsg" name="" id="">
+        <child-component v-bind:msg="parentMsg"></child-component>
+        <!-- 使用v-bind动态绑定父组件中的内容 -->
+    </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.5.16/vue.js"></script>
+    <script>
+        // 使用props传递数据 父亲想儿子传递数据
+        // 在组件中使用props来从父组件接收数据
+        // 注意 在props 中定义的属性 都可以在组件中直接使用
+        // props值有两种 字符串数组 和 对象
+        // props来自父级 组件中红的data return的数据是组件自己的
+        // 两种情况的作用域是组件本身 可以在template computed methods中使用
+        let app = new Vue({
+            el: "#app",
+            data: {
+                parentMsg: 'test word'
+            },
+            components: {
+                "child-component": {
+                    props: ['msg'],
+                    template: '<div style="border: 1px solid black;height: 100px;">{{msg}}</div>'
+                }
+            }
+
+        })
+    </script>
+</body>
+
+</html>

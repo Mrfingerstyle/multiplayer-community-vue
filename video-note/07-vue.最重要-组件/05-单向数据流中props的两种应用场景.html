@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #app {
+            width: 500px;
+            height: 500px;
+            margin: 0 auto;
+            border: 1px solid #000;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <my-component msg="父组件传递的数据"></my-component>
+        <hr>
+        <!-- 需求 通过input输入的数据 直接改变div的宽度 -->
+        <input type="text" name="" id="" v-model="width">
+        <br>
+        <br>
+        <!-- 传递的width仅仅是数据 -->
+        <width-component :width='width'></width-component>
+    </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.5.16/vue.js"></script>
+    <script>
+        // 通过props传递数据是单向的 也就是父组件数据变化会传递给子组件 反之不可
+        // 目的 尽可能将父子组件解耦 避免子组件无意修改了父组件的状态
+        // 应用场景 业务中经常遇到两种需要改变props的情况 
+
+        // 一种是父组件传递初始值进来，子组件将它作为初始值保存起来，在自己的作用域
+        // 下可以随意使用和修改。这种情况可以在组件 data 内再声明一个数据，引用父组件
+        // 的 prop
+        // 步骤一：注册组件
+        // 步骤二：将父组件的数据传递进来，并在子组件中用props接收
+        // 步骤三：将传递进来的数据通过初始值保存起来
+        Vue.component('my-component', {
+            props: ['msg'],
+            template: "<div>{{count}}</div>",
+            data() {
+                return {
+                    // props的值可以通过 this.xxx 直接获取
+                    count: this.msg
+                }
+            }
+        })
+
+        // 另一种情况就是 prop 作为需要被转变的原始值传入。这种情况用计算属性就可以了
+        // 步骤一：注册组件
+        // 步骤二：将父组件的数据传递进来，并在子组件中用props接收
+        // 步骤三：将传递进来的数据通过计算属性进行重新计算
+        Vue.component('width-component', {
+            props: ['width'],
+            template: "<div :style='style'></div>",
+            data() {
+                return {
+
+                }
+            },
+            computed: {
+                style() {
+                    return {
+                        width: this.width + 'px',
+                        background: 'red',
+                        height: "100px",
+                        margin: "0 auto"
+
+                    }
+                }
+            }
+        })
+
+        // props作为需要被改变的原始值传入
+
+
+        let app = new Vue({
+            el: "#app",
+            data: {
+                width: 0
+            }
+        })
+
+    </script>
+</body>
+
+</html>

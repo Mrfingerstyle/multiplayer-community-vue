@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <my-component></my-component>
+        <button @click="plus">{{count}}</button>
+        <button @click="plus">{{count}}</button>
+
+        <hr>
+        <btn-component></btn-component>
+        <btn-component></btn-component>
+    </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.5.16/vue.js"></script>
+    <script>
+        // 组件命名 小写字母 和 - 必须遵守
+        // 不能使用驼峰命名 
+
+        // template中的内容必须被一个DOM元素包括
+
+        // 在组件的定义中 除了template之外的其他选项 data computed methods
+
+        // 组件内的data必须是一个方法 重要
+        // 返回一个对象
+
+        let app = new Vue({
+            el: '#app',
+            data: {
+                count: 1
+            },
+            methods: {
+                plus() {
+                    this.count++
+                }
+            },
+            components: {
+                'my-component': {
+                    template: '<div>app局部注册的组件</div>'
+                },
+                'btn-component': {
+                    template: "<button @click='count++'>{{count}}</button>",
+                    data() {
+                        return {
+                            count: 1
+                        }
+                    }
+
+                }
+            }
+
+        })
+    </script>
+</body>
+
+</html>
