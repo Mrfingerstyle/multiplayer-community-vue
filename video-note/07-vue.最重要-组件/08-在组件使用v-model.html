@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #app {
+            height: 200px;
+            border: 1px solid #000;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div>父组件</div>
+        <h2>total -- {{total}}</h2>
+        <!-- 此处的change事件 命名 随意 -->
+        <!-- <son-component @change="handleTotal"></son-component> -->
+
+        <!-- 是一个语法糖 -->
+        <!-- v-model 其实就是绑定了input事件 当触发了input事件时 
+            input事件会自动接受传递过来的参数 并赋值给已绑定的total -->
+        <son-component v-model="total"></son-component>
+
+        <!-- v­model 其实是一个语法糖，这背后其实做了两个操作
+        v­bind 绑定一个 value 属性
+        v­on 指令给当前元素绑定 input 事件
+        要使用v­model,要做到:
+        接收一个 value 属性。
+        在有新的 value 时触发 input 事件 -->
+    </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.5.16/vue.js"></script>
+    <script>
+        Vue.component('son-component', {
+            template: `<div style="height: 100px;border: 1px solid #000;">
+                <div>子组件</div>
+                <button @click="handleIncrease">+1000</button>
+            </div>`,
+            data() {
+                return {
+                    count: 2000
+                }
+            },
+            methods: {
+                handleIncrease() {
+                    this.count = this.count + 1000
+                    // this.$emit('change', this.count)
+                    this.$emit('input', this.count)
+                }
+            }
+        })
+
+        let app = new Vue({
+            el: "#app",
+            data: {
+                total: 2000
+            },
+            methods: {
+                // handleTotal(value) {
+                //     // 此处的形参value就是传递过来的数据
+                //     this.total = value
+                // }
+            }
+        })
+
+    </script>
+</body>
+
+</html>

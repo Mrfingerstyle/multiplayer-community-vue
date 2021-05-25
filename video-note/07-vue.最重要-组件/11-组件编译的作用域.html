@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 这是父组件的作用域 -->
+        <!-- 绑定的是父元素的childShow -->
+        <my-component v-show="childShow">
+        </my-component>
+    </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.5.16/vue.js"></script>
+    <script>
+        Vue.component('my-component', {
+            // 这是子组件的作用域
+            template: '<div v-show="childShow">我是子组件</div>',
+            data() {
+                return {
+                    message: '我是子组件的内容',
+                    childShow: true
+                }
+            }
+        })
+        let app = new Vue({
+            el: '#app',
+            data: {
+                message: '我是父组件的内容',
+                childShow: false,
+
+            }
+        })
+    </script>
+    <script>
+        // 父组件模版的内容在父组件作用域内编译
+        // 子组件模版的内容在子组件作用域内编译
+    </script>
+</body>
+
+</html>

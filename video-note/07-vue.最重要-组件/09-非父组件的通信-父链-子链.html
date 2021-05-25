@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 有时候两个组件之间 非父子关系 需要通信 -->
+    <!-- 在简单的场景下 可以使用一个空的Vue实例作为中央事件总线 -->
+    <!-- 例如 父组件中 有 子组件A 子组件B -->
+    <div>非父组件之间的通信</div>
+    <div id="app">
+        <hr>
+        <a-component ref="a"></a-component>
+        <b-component ref="b"></b-component>
+        <hr>
+        <div>msg --> {{msg}}</div>
+        <child-component ref="c"></child-component>
+        <hr>
+        <button @click="getChildData">父组件按钮 需要拿到子组件内容</button>
+
+        <hr>
+        fromChild - {{fromChild}}
+
+
+
+    </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.5.16/vue.js"></script>
+    <script>
+        Vue.component("a-component", {
+            template: '<div><button @click="handle"> 点击按钮向b组件传递数据 </button></div>',
+            data() {
+                return {
+                    aaa: '来自 a 组件的内容',
+                    msg: 'a msg'
+                }
+            },
+            methods: {
+                // 2 提交事件
+                handle() {
+                    this.$root.bus.$emit("lala", this.aaa)
+                }
+            }
+        })
+
+        Vue.component("b-component", {
+            template: '<div></div>',
+            data() {
+                return {
+                    msg: 'b msg'
+                }
+            },
+            created() {
+                // a组件在实例创建的时候就监听事件 -- lala事件
+                // 3 监听事件
+                this.$root.bus.$on('lala', function (value) {
+                    alert(value);
+                })
+            }
+        }),
+            Vue.component("child-component", {
+                template: '<button @click="setFatherData">点击修改父亲的数据</button>',
+                methods: {
+                    setFatherData() {
+                        // 父链
+                        this.$parent.msg = '修改后的data数据'
+                    }
+                },
+                data() {
+                    return {
+                        msg: 'c msg'
+                    }
+                }
+            })
+
+        let app = new Vue({
+            el: '#app',
+            data: {
+                // 第一步定义bus中介
+                // bus中介
+                bus: new Vue(),
+                msg: '原始的data数据',
+                fromChild: '还未拿到'
+            },
+            methods: {
+                getChildData() {
+                    // 获取子组件的内容
+                    // 子链
+                    this.fromChild = this.$refs.c.msg
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
