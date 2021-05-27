@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <button @click="switchShow">toggle image</button>
+        {{show}}
+        <hr>
+        <my-component :show="show">
+        </my-component>
+    </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.5.16/vue.js"></script>
+    <script>
+        // 点击按钮切换图片
+        Vue.component('my-component', {
+            props: ['show'],
+            render: function (createElement) {
+                let imgSrc
+                if (this.show) {
+                    imgSrc = './01.jpeg'
+                } else {
+                    imgSrc = './02.jpeg'
+                }
+                return createElement('img', {
+                    attrs: {
+                        src: imgSrc
+                    }
+                })
+            }
+
+        })
+        let app = new Vue({
+            el: '#app',
+            data: {
+                show: false
+            },
+            methods: {
+                switchShow() {
+                    this.show = !this.show
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

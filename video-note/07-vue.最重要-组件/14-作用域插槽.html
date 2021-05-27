@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <my-component>
+            <!-- template模版永远不会被渲染 -->
+            <template slot="abc" slot-scope="prop">
+                {{prop.text}}
+                {{prop.ss}}
+            </template>
+            <p slot="abc" slot-scope="prop">
+                {{prop.text}}
+                {{prop.ss}}
+            </p>
+        </my-component>
+    </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.5.16/vue.js"></script>
+    <script>
+        // 作用域插xxxx槽是一种特殊的slot 使用一个可以复用的模版来替换已经渲染的元素
+        // ---从子组件获取数据
+    </script>
+    <script>
+        Vue.component('my-component', {
+            template: `<div>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+                    <slot text="我是来自子组件的数据" ss="ssss" name="abc"></slot>
+                </div>`
+        })
+        let app = new Vue({
+            el: '#app',
+            data: {
+
+            }
+        })
+    </script>
+</body>
+
+</html>

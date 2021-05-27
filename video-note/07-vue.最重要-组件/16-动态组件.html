@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <component :is="thisView"></component>
+        <hr>
+        <button @click="handleView('a')">a</button>
+        <button @click="handleView('b')">b</button>
+        <button @click="handleView('c')">c</button>
+    </div>
+
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.5.16/vue.js"></script>
+
+    <script>
+        // 需求 点击切换不同的按钮切换不同的视图
+        Vue.component('my-component-a', {
+            template: '<div>my-component-a</div>'
+        })
+        Vue.component('my-component-b', {
+            template: '<div>my-component-b</div>'
+        })
+        Vue.component('my-component-c', {
+            template: '<div>my-component-c</div>'
+        })
+        let app = new Vue({
+            el: '#app',
+            data: {
+                thisView: 'my-component-a'
+            },
+            methods: {
+                handleView(tab) {
+                    this.thisView = 'my-component-' + tab
+                },
+            }
+        })
+        // 动态组件
+        // vue提供了一个元素 component
+        // 用来动态挂载不同的组件
+        // 使用is特性实现
+    </script>
+</body>
+
+</html>

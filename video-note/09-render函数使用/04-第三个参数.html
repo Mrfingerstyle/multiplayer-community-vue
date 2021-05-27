@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 第三个参数是可选的 string array -->
+        <!-- 表示子节点 -->
+        <!-- 构建函数的子节点使用 -->
+        <child></child>
+    </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.5.16/vue.js"></script>
+    <script>
+        Vue.component('child', {
+            render: function (createElement) {
+                return createElement('div', {
+                    class: {
+                        foo: true,
+                        baz: false
+                    },
+                    style: {
+                        color: 'red',
+                        fontSize: '16px'
+                    },
+                }, [
+                    createElement('h1', 'this is h1 tag'),
+                    createElement('h5', 'this is h5 tag')
+                ])
+            }
+        })
+        let app = new Vue({
+            el: '#app',
+            data: {}
+        })
+    </script>
+</body>
+
+</html>

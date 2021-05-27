@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <child></child>
+    </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.5.16/vue.js"></script>
+    <script>
+        Vue.component('child', {
+            // 参数createElement不可变
+            // createElement函数第一个参数可以是string object function
+            // string - html标签
+            // object - 含有数据选项的对象
+            // function
+            render: function (createElement) {
+                alert(createElement);
+                // function 类型
+
+                // return createElement('div')
+                // return createElement({
+                // template: '<div>test</div>',
+                // })
+                let domFun = function () {
+                    return {
+                        template: '<div>test</div>'
+                    }
+                }
+                return createElement(domFun())
+            }
+        })
+        let app = new Vue({
+            el: '#app',
+            data: {
+            }
+        })
+    </script>
+</body>
+
+</html>

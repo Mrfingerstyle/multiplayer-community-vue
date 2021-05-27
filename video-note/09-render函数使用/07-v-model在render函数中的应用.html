@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- <my-component :name="name" @input="showName"></my-component> -->
+        <my-component :name="name" v-model="name"></my-component>
+        <br><br>
+        {{name}}
+
+    </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.5.16/vue.js"></script>
+    <script>
+        // 点击按钮切换图片
+        Vue.component('my-component', {
+            render: function (createElement) {
+                // 指的就是当前的vue实例
+                let self = this
+                return createElement('input', {
+                    domProps: {
+                        value: self.name
+                    },
+                    on: {
+                        input() {
+                            self.$emit('input', event.target.value)
+                        }
+                    }
+                })
+            },
+            props: ['name']
+
+        })
+
+        // 使用v-model方式
+
+        let app = new Vue({
+            el: '#app',
+            data: {
+                name: 'jack'
+            },
+            // methods: {
+            //     showName(value) {
+            //         this.name = value
+            //     }
+            // }
+        })
+
+    </script>
+</body>
+
+</html>

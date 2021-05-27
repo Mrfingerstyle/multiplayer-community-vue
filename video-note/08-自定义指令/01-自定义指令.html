@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <div>获取焦点</div>
+        <input type="text" v-focus><br>
+        <input type="text"><br>
+        <div v-test:dog.a.b.c='obq'></div>
+    </div>
+
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.5.16/vue.js"></script>
+    <script>
+        // directive
+        // 打开页面 自动获取焦点
+        // 钩子函数 
+        // 指令定义函数提供了几个钩子函数
+        // bind
+        // unbind
+        // inserted 被绑定元素插入父节点时调用
+        // update
+        // componentUpdate
+
+        // 钩子函数参数
+        // el 指令所绑定的元素
+        // binding 
+        // {
+
+        // }
+        Vue.directive('focus', {
+            // 指令选项 插入到父节点的时候调用
+            inserted(el) {
+                el.focus()
+            }
+        })
+        Vue.directive('test', {
+
+
+            bind(el, binding, vNode) {
+                let keys = []
+                for (const key in vNode) {
+                    keys.push(key)
+                }
+                el.innerHTML =
+                    'name--' + binding.name + '<br>' +
+                    'value--' + binding.value + '<br>' +
+                    'expression--' + binding.name + '<br>' +
+                    'argument-参数-' + binding.arg + '<br>' +
+                    'modifiers-修饰符对象-' + JSON.stringify(binding.modifiers) + '<br>' +
+                    "---vNode keys---" + keys.join(' - ')
+                // console.log(keys);
+            }
+        })
+
+        let app = new Vue({
+            el: '#app',
+            data: {
+                'abcde': '我是value',
+                obq: '自定义指令绑定的值'
+            }
+        })
+    </script>
+</body>
+
+</html>

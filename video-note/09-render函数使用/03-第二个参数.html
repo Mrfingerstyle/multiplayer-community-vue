@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <div>render函数的第二个参数</div>
+        <hr>
+        <!-- 第二个参数可选 是数据对象 只能是object -->
+        <child></child>
+    </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.5.16/vue.js"></script>
+    <script>
+        Vue.component('child', {
+            render: function (createElement) {
+                return createElement({
+                    template: '<div>this is a div</div>'
+                }, {
+                    class: {
+                        foo: true,
+                        baz: false
+                    },
+                    style: {
+                        color: 'red',
+                        fontSize: '16px'
+                    },
+                    // 正常的html特性
+                    attrs: {
+                        id: 'foo',
+                        src: 'https://www.baidu.com'
+                    },
+                    // 用来写原生的DOM属性
+                    domProps: {
+                        innerHTML: '<span style="color: blue; font-size: 24px">this is a span</span>'
+                    }
+                })
+            }
+        })
+        let app = new Vue({
+            el: '#app',
+            data: {
+            }
+        })
+    </script>
+</body>
+
+</html>

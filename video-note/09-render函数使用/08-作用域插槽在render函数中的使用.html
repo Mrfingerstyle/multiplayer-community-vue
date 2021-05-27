@@ -10,32 +10,33 @@
 
 <body>
     <div id="app">
-        <!-- 插槽混合父组件的内容和子组件自己的模版 -->
-        <!-- 弥补了视图的不足 -->
         <my-component>
-            <p>hello vue</p>
-            <p>我是父组件的内容</p>
+            <template scope="prop">
+                <div>
+                    {{prop.text}}
+                </div>
+                <div>
+                    {{prop.msg}}
+                </div>
+            </template>
         </my-component>
     </div>
     <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.5.16/vue.js"></script>
     <script>
-        // 单个插槽的用法
         Vue.component('my-component', {
-            template: '<div>\
-                    <slot>\
-                        如果父组件没有插入内容 我就默认出现\
-                        </slot>\
-                </div > ',
+            render: function (createElement) {
+                return createElement('div', this.$scopedSlots.default({
+                    text: '子组件传递的数据',
+                    msg: '子组件传递的信息'
+                }))
+            }
         })
-
         let app = new Vue({
             el: '#app',
             data: {
-                message: 'msg'
+
             }
         })
-    </script>
-    <script>
     </script>
 </body>
 
