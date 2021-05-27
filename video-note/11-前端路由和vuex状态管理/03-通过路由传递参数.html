@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // vue-router路由参数的传递
+        // 必须在路由内加入路由的name
+        // 必须在path后加/: + 传递的参数
+        // 传递参数和接收参数
+
+        // 传递参数
+        // <router-link :to="{name:'helloworld', params:{worldMsg: 'hello-world'}}">
+        //     hello world
+        //     </router-link>
+
+        // 读取参数
+        // $route.params.earthMsg
+        // <h3>{{$route.params.earthMsg}}</h3>
+
+        // <!-- 第一种方式 -->
+        //     <!-- <router-link :to="{name:'helloworld', params:{worldMsg: 'hello-world'}}">
+        //     hello world
+        //     </router-link> -->
+        // 地址栏 显示 /
+
+        //     <!-- 第二种方式 -->
+        //     <router-link :to="{path:'/helloworld', query:{worldMsg: 'hello-world'}}">
+        //     hello world
+        //     </router-link>
+        // 地址栏 显示 ?
+
+        // 
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>
