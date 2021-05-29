@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 如何改变状态
+        // vuex状态改变的流程
+        // view - action - mutations - state - view 
+        // main.js
+        // let store = new Vuex.Store({
+//   state: {
+//     num: 88
+//   },
+//   mutations: {
+//     increase(state){
+//       state.num++
+//     },
+//     decrease(state){
+//       state.num--
+//     }
+//   }
+// })
+
+// son.vue
+// methods: {
+//         sendMsgToFather(){
+//             this.$emit('handle', this.toFaeherMsg)
+//         },
+//         sAdd(){
+//                 this.$store.commit('increase')
+//             }
+//     },
+
+// computed: {
+//         getNum(){
+//             return this.$store.state.num
+//         }
+//     }
+
+// <button @click="sAdd">子组件 -- 改变状态按钮</button>
+
+
+// 注意：actions提交的是mutation,而不是直接变更状态
+// actions可以包含异步操作，但是mutation只能包含同步操作
+
+// actions中只能对mutation进行操作
+
+    </script>
+</body>
+
+</html>
