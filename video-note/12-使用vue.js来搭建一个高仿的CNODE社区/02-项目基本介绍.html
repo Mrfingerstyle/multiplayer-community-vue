@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /*
+        高仿cNode社区
+        实现目标
+            列表页
+            详情页
+            分页
+        */
+
+        /*
+        项目组件化的基本结构
+        组件：Header 头部
+        PostList 列表
+            从后台拿到的参数分析
+                头像 avatar_url
+                回复数 reply_count
+                浏览数 visit_count
+                帖子标题 title
+                需要使用过滤器
+                时间 last_reply_at
+                帖子分类
+                置顶 top代表是否置顶
+                精华 good
+                tab: 'share' 'ask' 'job'
+                问答 分享 招聘
+
+                处理时间的过滤器
+                Vue.filter('formatDate', function (str) {
+                if (!str) return ''
+                var date = new Date(str)
+                var time = new Date().getTime() - date.getTime() //现在的时间-传入的时间 = 相差的时间（单位 = 毫秒）
+                if (time < 0) {
+                return ''
+                } else if ((time / 1000 < 30)) {
+                return '刚刚'
+                } else if (time / 1000 < 60) {
+                return parseInt((time / 1000)) + '秒前'
+                } else if ((time / 60000) < 60) {
+                return parseInt((time / 60000)) + '分钟前'
+                } else if ((time / 3600000) < 24) {
+                return parseInt(time / 3600000) + '小时前'
+                } else if ((time / 86400000) < 31) {
+                return parseInt(time / 86400000) + '天前'
+                } else if ((time / 2592000000) < 12) {
+                return parseInt(time / 2592000000) + '月前'
+                } else {
+                return parseInt(time / 31536000000) + '年前'
+                }
+            })
+            
+            //处理显示板块的文字
+            Vue.filter('tabFormatter',function (post) {
+            if(post.good == true){
+                return '精华'
+            }else if(post.top == true){
+                return '置顶'
+            }else if(post.tab == 'ask'){
+                return '问答'
+            }else if(post.tab == 'share'){
+                return '分享'
+            }else{
+                return '招聘'
+            }
+            })
+
+
+        Article 文章的详情页
+        SlideBar 侧边栏
+        UserInfo 用户个人信息
+        Paging 分页组件
+
+
+        */
+    </script>
+
+</body>
+
+</html>
